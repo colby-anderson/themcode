@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option go_package = "BrunoCoin/pkg/proto";
+
+
+message Empty {}
+
+message VersionRequest {
+  uint32 version = 1;
+  string addr_you = 2;
+  string addr_me = 3;
+  string ser_pk = 4;
+}
+
+message Address {
+  string addr = 1;
+  uint32 last_seen = 2;
+}
+
+message Addresses {
+  repeated Address addrs = 1;
+}
+
+message Registration {
+  string register = 1;
+}
+
+message Certificate {
+  string cert = 1;
+}
+
+message EncKeysMem {
+  string encryptedstuff = 1;
+}
+
+message GroupIM {
+  string encryptedmsg = 1;
+}
+
+service BrunoCoin {
+  rpc Version(VersionRequest) returns (Empty);
+  rpc SendAddresses(Addresses) returns (Empty);
+  rpc GetAddresses(Empty) returns (Addresses);
+  rpc Register(Registration) returns (Certificate);
+  rpc AddMember(EncKeysMem) returns (Empty);
+  rpc KickMember(EncKeysMem) returns (Empty);
+  rpc GroupMessage(GroupIM) returns (Empty);
+}
